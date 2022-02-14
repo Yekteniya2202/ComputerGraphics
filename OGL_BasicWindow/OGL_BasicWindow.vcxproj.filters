@@ -36,6 +36,9 @@
     <ClCompile Include="src\GL\VAO.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\GL\Program.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\basic.vert">
@@ -44,6 +47,8 @@
     <None Include="Shaders\basic.frag">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="res\glsl\first.vert" />
+    <None Include="res\glsl\first.frag" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLFW\GLFW.h">
@@ -53,6 +58,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\GL\VAO.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GL\Program.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

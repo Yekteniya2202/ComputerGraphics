@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GL\Program.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\GLFW\GLFW.cpp" />
     <ClCompile Include="src\GLFW\Window.cpp" />
@@ -152,10 +153,13 @@
     <ClCompile Include="src\GL\VAO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\glsl\first.frag" />
+    <None Include="res\glsl\first.vert" />
     <None Include="Shaders\basic.frag" />
     <None Include="Shaders\basic.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GL\Program.h" />
     <ClInclude Include="src\GLFW\GLFW.h" />
     <ClInclude Include="src\GLFW\Window.h" />
     <ClInclude Include="src\GL\VAO.h" />

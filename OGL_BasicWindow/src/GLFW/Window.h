@@ -2,6 +2,9 @@
 #include <glad\glad.h>
 #include <string>
 #include <GLFW\glfw3.h>
+#include <glm\glm.hpp>
+#include "../GL/VAO.h"
+#include "../GL/Program.h"
 
 class Window {
 private:
