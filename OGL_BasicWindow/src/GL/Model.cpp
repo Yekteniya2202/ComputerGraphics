@@ -25,7 +25,7 @@ Model::Model(std::vector<glm::vec3> points, std::vector<glm::vec3> colors, std::
 void Model::Draw(GLenum type)
 {
 	Update();
-	vao.draw(GL_TRIANGLES);
+	vao.draw(type);
 }
 
 void Model::SetRotationX(float degree)

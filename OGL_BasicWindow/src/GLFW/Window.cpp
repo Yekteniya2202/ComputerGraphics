@@ -1,6 +1,7 @@
 #include "Window.h"
 #include <stdexcept>
 
+float cam_dist = 5.0f;
 
 void OnResize2(GLFWwindow* win, int width, int height)
 {
@@ -30,41 +31,6 @@ void Window::setContextCurrent()
 
 void Window::loop()
 {
-	GL::VAO vao;
-	vao.addVertexBufferObject({
-		{-1.0f,	1.0f,	-1.0f},
-		{1.0f,	1.0f,	-1.0f},		
-		{1.0f,	1.0f,	1.0f},		
-		{-1.0f,	1.0f,	1.0f},		
-		{-1.0f,	-1.0f,	-1.0f},		
-		{1.0f,	-1.0f,	-1.0f},		
-		{1.0f,	-1.0f,	1.0f},		
-		{-1.0f,	-1.0f,	1.0f}
-	});
-	vao.addVertexBufferObject({
-		{1.0f, 0.0f, 0.0f},
-		{0.5f, 0.5f, 0.0f},
-		{0.0f, 1.0f, 0.0f},
-		{0.0f, 0.5f, 0.5f},
-		{0.0f, 0.0f, 1.0f},
-		{0.5f, 0.0f, 0.5f},
-		{0.5f, 0.5f, 0.5f},
-		{1.0f, 1.0f, 1.0f}
-	});
-	vao.addIndices({
-		0,1,3,
-		1,2,3,
-		0,4,1,
-		1,4,5,
-		0,3,7,
-		0,7,4,
-		1,6,2,
-		1,5,6,
-		2,7,3,
-		2,6,7,
-		4,7,5,
-		5,7,6
-	});
 
 	Model myCube({
 		{-1.0f,	1.0f,	-1.0f},
@@ -106,38 +72,54 @@ void Window::loop()
 	first.link();
 	first.use();
 	float anim = 0.f;
-
 	
 	while (!glfwWindowShouldClose(mWindow)) {
+		processInput();
+
 		glClearColor(0, 0, 0, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
 
-		myCube.SetRotationX(glfwGetTime() * 45.0);
+		glm::vec3 pos_vec = glm::vec3(cam_dist * cos(glfwGetTime() * 0.3), 0, cam_dist * sin(glfwGetTime() * 0.3));
+		glm::vec3 target_vec = glm::vec3(0, 0, 0);
+		glm::vec3 up_vec = glm::vec3(0.0f, 1.0f, 0.0f);
+
+		glm::mat4 camera = glm::lookAt(pos_vec, target_vec, up_vec);
+		//glm::mat4 projection = glm::ortho(-1.f, 1.f, -1.f, 1.f, 0.1f, 100.f);
+		glm::mat4 projection = glm::perspective(45.0f, 1.0f, 0.01f, 50.f);
+
+
+		//myCube.SetRotationX(glfwGetTime() * 45.0);
 		myCube.SetRotationZ(glfwGetTime() * 60.0);
-		myCube.SetPosX(0.8f * cos(glfwGetTime()));
-		myCube.SetPosY(0.8f * sin(glfwGetTime()));
+		myCube.SetPosX(3.0f * cos(glfwGetTime()));
+		myCube.SetPosY(3.0f * sin(glfwGetTime()));
 		myCube.SetScale(0.2f);
 		glm::mat4 model = myCube.GetModel();
-		first.setFloatMat4("model", model);
+		glm::mat4 pvm = projection * camera * model;
+
+		first.setFloatMat4("pvm", pvm);
 		myCube.Draw(GL_TRIANGLES);
 
-		myCube.SetRotationY(glfwGetTime() * 45.0);
+		//myCube.SetRotationY(glfwGetTime() * 45.0);
 		myCube.SetRotationZ(glfwGetTime() * 30.0);
-		myCube.SetPosX(0.8f * cos(glfwGetTime() + 3.14158f));
-		myCube.SetPosY(0.8f * sin(glfwGetTime() + 3.14158f));
+		myCube.SetPosX(3.0f * cos(glfwGetTime() + 3.14158f));
+		myCube.SetPosY(3.0f * sin(glfwGetTime() + 3.14158f));
 		model = myCube.GetModel();
-		first.setFloatMat4("model", model);
+		pvm = projection * camera * model;
+
+		first.setFloatMat4("pvm", pvm);
 		myCube.Draw(GL_TRIANGLES);
 
 		myCube.SetRotationZ(0);
 		myCube.SetPosX(0);
 		myCube.SetPosY(0);
-		myCube.SetRotationY(glfwGetTime() * 90.0);
-		myCube.SetRotationX(glfwGetTime() * 60.0);
+		//myCube.SetRotationY(glfwGetTime() * 90.0);
+		//myCube.SetRotationX(glfwGetTime() * 60.0);
 		model = myCube.GetModel();
-		first.setFloatMat4("model", model);
+		pvm = projection * camera * model;
+
+		first.setFloatMat4("pvm", pvm);
 		myCube.Draw(GL_TRIANGLES);
 
 		/*
@@ -163,6 +145,16 @@ void Window::loop()
 		
 		glfwSwapBuffers(mWindow);
 		glfwPollEvents();
+	}
+}
+
+void Window::processInput()
+{
+	if (glfwGetKey(mWindow, GLFW_KEY_PAGE_UP) == GLFW_PRESS) {
+		cam_dist += 0.02f;
+	}
+	if (glfwGetKey(mWindow, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS) {
+		cam_dist -= 0.02f;
 	}
 }
 

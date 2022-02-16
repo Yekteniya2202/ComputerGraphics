@@ -15,5 +15,6 @@ public:
 	Window(const std::string& title, int width, int height);
 	void setContextCurrent();
 	void loop();
+	void processInput();
 	~Window();
 };
