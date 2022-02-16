@@ -1,6 +1,8 @@
 #pragma once
 #include <glad\glad.h>
 #include <glm\glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <string>
 namespace GL {
 	class Program
@@ -21,6 +23,7 @@ namespace GL {
 		void setFloatVec(const std::string& name, glm::vec3 vec);
 		void setFloatVec(const std::string& name, glm::vec4 vec);
 		void setFloatVec(const std::string& name, float* vec, int vec_size) const;
+		void setFloatMat4(const std::string& name, glm::mat4& mat) const;
 		~Program();
 	};
 }

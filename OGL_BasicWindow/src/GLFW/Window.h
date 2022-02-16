@@ -3,9 +3,10 @@
 #include <string>
 #include <GLFW\glfw3.h>
 #include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
 #include "../GL/VAO.h"
 #include "../GL/Program.h"
-
+#include "../GL/Model.h"
 class Window {
 private:
 	GLFWwindow* mWindow;

@@ -10,7 +10,7 @@ GLuint GL::Program::loadShader(const std::string& path, GLenum shaderType)
 
 	const char* c = shaderCode.c_str();
 	glShaderSource(shader, 1, &c, nullptr);
-
+	glCompileShader(shader);
 	GLint status;
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
 	char buf[0x1000];
@@ -58,6 +58,11 @@ void GL::Program::setFloatVec(const std::string& name, float* vec, int vec_size)
 	case 4: glUniform4f(getLocation(name), vec[0], vec[1], vec[2], vec[3]); break;
 	default: std::cout << "SHADER FAILURE! NO SUCH UNIFORM VECTOR SIZE!" << std::endl;
 	}
+}
+
+void GL::Program::setFloatMat4(const std::string& name, glm::mat4& mat) const
+{
+	glUniformMatrix4fv(getLocation(name), 1, GL_FALSE, glm::value_ptr(mat));
 }
 
 

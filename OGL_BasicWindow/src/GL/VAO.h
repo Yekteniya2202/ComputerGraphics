@@ -21,6 +21,7 @@ namespace GL {
 		void addVertexBufferObject(const std::vector<glm::vec4>& data);
 		void draw(unsigned type);
 		void addIndices(const std::vector<unsigned>& data);
+		void addIndices(const std::vector<glm::vec3>& data);
 		~VAO();
 	};
 }

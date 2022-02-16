@@ -86,6 +86,18 @@ void GL::VAO::addIndices(const std::vector<unsigned>& data)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, data.size() * sizeof(unsigned), data.data(), GL_STATIC_DRAW);
 }
 
+void GL::VAO::addIndices(const std::vector<glm::vec3>& data)
+{
+	assert(mIndicesBuffer == 0); // мы не можем создать ещё один буфер
+
+	mIndicesCount = data.size();
+	glGenBuffers(1, &mIndicesBuffer);
+
+	// обратите внимание, что мы используем не GL_ARRAY_BUFFER, а GL_ELEMENT_ARRAY_BUFFER
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mIndicesBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, data.size() * sizeof(glm::vec3), data.data(), GL_STATIC_DRAW);
+}
+
 GL::VAO::~VAO()
 {
 	glDeleteBuffers(mBuffers.size(), mBuffers.data());

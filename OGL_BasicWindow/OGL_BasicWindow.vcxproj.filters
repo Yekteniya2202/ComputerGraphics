@@ -39,6 +39,9 @@
     <ClCompile Include="src\GL\Program.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\GL\Model.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\basic.vert">
@@ -61,6 +64,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\GL\Program.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GL\Model.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

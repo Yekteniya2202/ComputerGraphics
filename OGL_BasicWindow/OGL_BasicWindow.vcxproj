@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GL\Model.cpp" />
     <ClCompile Include="src\GL\Program.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\GLFW\GLFW.cpp" />
@@ -159,6 +160,7 @@
     <None Include="Shaders\basic.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GL\Model.h" />
     <ClInclude Include="src\GL\Program.h" />
     <ClInclude Include="src\GLFW\GLFW.h" />
     <ClInclude Include="src\GLFW\Window.h" />
