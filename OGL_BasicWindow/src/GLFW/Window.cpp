@@ -2,7 +2,6 @@
 #include <stdexcept>
 
 float cam_dist = 5.0f;
-
 void OnResize2(GLFWwindow* win, int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -22,6 +21,8 @@ Window::Window(const std::string& title, int width, int height) {
 	glViewport(0, 0, width, height);
 
 	glEnable(GL_DEPTH_TEST);
+
+
 }
 
 void Window::setContextCurrent()
@@ -51,6 +52,15 @@ void Window::loop()
 		{0.5f, 0.5f, 0.5f},
 		{1.0f, 1.0f, 1.0f}
 		},{
+		{0.f, 1.f},
+		{1.f, 1.f},
+		{1.f, 0.f},
+		{0.f, 0.f},
+		{1.f, 0.f},
+		{0.f, 0.f},
+		{0.f, 1.f},
+		{1.f, 1.f}
+		}, {
 		0,1,3,
 		1,2,3,
 		0,4,1,
@@ -65,7 +75,7 @@ void Window::loop()
 		5,7,6
 		});
 
-	
+	myCube.GenTexture();
 	myCube.SetScale(0.5f);
 	GL::Program first("first");
 	first.bindAttribute(0, "position");
@@ -92,8 +102,8 @@ void Window::loop()
 
 		//myCube.SetRotationX(glfwGetTime() * 45.0);
 		myCube.SetRotationZ(glfwGetTime() * 60.0);
-		myCube.SetPosX(3.0f * cos(glfwGetTime()));
-		myCube.SetPosY(3.0f * sin(glfwGetTime()));
+		myCube.SetPosX(0.6f * cos(glfwGetTime()));
+		myCube.SetPosY(0.6f * sin(glfwGetTime()));
 		myCube.SetScale(0.2f);
 		glm::mat4 model = myCube.GetModel();
 		glm::mat4 pvm = projection * camera * model;
@@ -103,8 +113,8 @@ void Window::loop()
 
 		//myCube.SetRotationY(glfwGetTime() * 45.0);
 		myCube.SetRotationZ(glfwGetTime() * 30.0);
-		myCube.SetPosX(3.0f * cos(glfwGetTime() + 3.14158f));
-		myCube.SetPosY(3.0f * sin(glfwGetTime() + 3.14158f));
+		myCube.SetPosX(0.6f * cos(glfwGetTime() + 3.14158f));
+		myCube.SetPosY(0.6f * sin(glfwGetTime() + 3.14158f));
 		model = myCube.GetModel();
 		pvm = projection * camera * model;
 

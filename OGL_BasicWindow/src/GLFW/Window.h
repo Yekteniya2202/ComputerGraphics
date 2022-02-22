@@ -7,6 +7,8 @@
 #include "../GL/VAO.h"
 #include "../GL/Program.h"
 #include "../GL/Model.h"
+
+typedef unsigned char byte;
 class Window {
 private:
 	GLFWwindow* mWindow;

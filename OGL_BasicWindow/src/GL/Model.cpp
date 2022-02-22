@@ -1,5 +1,7 @@
 #include "Model.h"
 #include <glm/ext/matrix_transform.hpp>
+#define STB_IMAGE_IMPLEMENTATION
+#include "../stb_image.h"
 
 void Model::Update()
 {
@@ -11,19 +13,41 @@ void Model::Update()
 	this->model = glm::scale(model, polygonTrans.scale);
 }
 
-Model::Model(std::vector<glm::vec3> points, std::vector<glm::vec3> colors, std::vector<unsigned> indices)
+Model::Model(std::vector<glm::vec3> points, std::vector<glm::vec3> colors, std::vector<glm::vec2> texture, std::vector<unsigned> indices)
 {
 	this->points = points;
 	this->colors = colors;
 	this->indices = indices;
 	vao.addVertexBufferObject(points);
 	vao.addVertexBufferObject(colors);
+	vao.addVertexBufferObject(texture);
 	vao.addIndices(indices);
 	Update();
 }
 
+void Model::GenTexture()
+{
+	glGenTextures(1, &box_texture);
+	data = stbi_load("images/roflan.jpg", &box_width, &box_height, &channels, 0);
+
+	glBindTexture(GL_TEXTURE_2D, box_texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	if (channels == 3) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, box_width, box_height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	}
+	else {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, box_width, box_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	}
+	stbi_image_free(data);
+}
+
 void Model::Draw(GLenum type)
 {
+
 	Update();
 	vao.draw(type);
 }

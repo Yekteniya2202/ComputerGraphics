@@ -165,6 +165,7 @@
     <ClInclude Include="src\GLFW\GLFW.h" />
     <ClInclude Include="src\GLFW\Window.h" />
     <ClInclude Include="src\GL\VAO.h" />
+    <ClInclude Include="src\stb_image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

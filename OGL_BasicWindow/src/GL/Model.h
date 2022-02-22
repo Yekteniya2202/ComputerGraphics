@@ -15,6 +15,7 @@ struct ModelTransform {
 	}
 };
 
+typedef unsigned char byte;
 class Model
 {
 private:
@@ -22,6 +23,9 @@ private:
 	std::vector<glm::vec3> points;
 	std::vector<glm::vec3> colors;
 	std::vector<unsigned> indices;
+	byte* data;
+	int box_width, box_height, channels;
+	unsigned int box_texture;
 	ModelTransform polygonTrans = { glm::vec3(0.0f, 0.0f, 0.0f), //pos
 									glm::vec3(0.f, 0.f, 0.f), //rotation
 									glm::vec3(1.f, 1.f, 1.f) }; //scale 
@@ -30,8 +34,9 @@ private:
 	void Update();
 public:
 	Model() = delete;
-	Model(std::vector<glm::vec3> points, std::vector<glm::vec3> colors, std::vector<unsigned> indices);
+	Model(std::vector<glm::vec3> points, std::vector<glm::vec3> colors, std::vector<glm::vec2> texture, std::vector<unsigned> indices);
 	Model(const Model& other);
+	void GenTexture();
 	void Draw(GLenum type);
 	void SetRotationX(float degree);
 	void SetRotationY(float degree);
