@@ -1,6 +1,7 @@
 #include "VAO.h"
 #include <iostream>
 #include <cassert>
+#include <iomanip>
 
 GL::VAO::VAO()
 {
@@ -12,6 +13,11 @@ void GL::VAO::bind()
 {
 	glBindVertexArray(mVao);
 	
+}
+
+void GL::VAO::setIndicesCount(unsigned count)
+{
+	mIndicesCount = count;
 }
 
 void GL::VAO::addVertexBufferObject(const std::vector<float>& data)
@@ -32,6 +38,7 @@ void GL::VAO::addVertexBufferObject(const std::vector<glm::vec2>& data)
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(glm::vec2), data.data(), GL_STATIC_DRAW);
 	glVertexAttribPointer(mBuffers.size(), 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+
 	mBuffers.push_back(vbo);
 }
 /**
@@ -63,12 +70,11 @@ void GL::VAO::addVertexBufferObject(const std::vector<glm::vec4>& data)
 
 void GL::VAO::draw(unsigned type)
 {
-	assert(mIndicesBuffer != 0);
 	bind();
 	for (size_t i = 0; i < mBuffers.size(); i++) {
 		glEnableVertexAttribArray(i);
 	}
-	glDrawElements(type, mIndicesCount, GL_UNSIGNED_INT, nullptr);
+	glDrawArrays(GL_TRIANGLES, 0, mIndicesCount);
 	for (size_t i = 0; i < mBuffers.size(); i++) {
 		glDisableVertexAttribArray(i);
 	}

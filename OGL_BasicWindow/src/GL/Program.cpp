@@ -33,6 +33,11 @@ void GL::Program::setFloat(const std::string& name, float value)
 	glUniform1f(getLocation(name), value);
 }
 
+void GL::Program::setBool(const std::string& name, bool value)
+{
+	glUniform1i(getLocation(name), value);
+}
+
 void GL::Program::setFloatVec(const std::string& name, glm::vec2 vec)
 {
 	glUniform2f(getLocation(name), vec[0], vec[1]);

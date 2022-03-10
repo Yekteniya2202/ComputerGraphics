@@ -22,6 +22,8 @@ private:
 	GL::VAO vao;
 	std::vector<glm::vec3> points;
 	std::vector<glm::vec3> colors;
+	std::vector<glm::vec3> normals;
+	std::vector<glm::vec2> texture;
 	std::vector<unsigned> indices;
 	byte* data;
 	int box_width, box_height, channels;
@@ -34,8 +36,10 @@ private:
 	void Update();
 public:
 	Model() = delete;
-	Model(std::vector<glm::vec3> points, std::vector<glm::vec3> colors, std::vector<glm::vec2> texture, std::vector<unsigned> indices);
+	//Model(std::vector<glm::vec3> points, std::vector<glm::vec3> colors, std::vector<glm::vec2> texture, std::vector<unsigned> indices);
+	Model(std::vector<glm::vec3> points, std::vector<glm::vec3> normals, std::vector<glm::vec2> texture, std::vector<glm::vec3> colors);
 	Model(const Model& other);
+	void SetPolygonTrans(ModelTransform pt);
 	void GenTexture();
 	void Draw(GLenum type);
 	void SetRotationX(float degree);

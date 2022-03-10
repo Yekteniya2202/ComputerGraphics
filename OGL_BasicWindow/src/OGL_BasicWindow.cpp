@@ -17,7 +17,7 @@ int main()
 {
 	try {
 		GLFW glfw;
-		Window window("qwerty", 900, 900);
+		Window window("qwerty", 1280, 720);
 		window.loop();
 	}
 	catch (const std::runtime_error& e) {

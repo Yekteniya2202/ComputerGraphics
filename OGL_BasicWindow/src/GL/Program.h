@@ -19,6 +19,7 @@ namespace GL {
 		void use();
 		void bindAttribute(GLuint index, const std::string& name);
 		void setFloat(const std::string& name, float value);
+		void setBool(const std::string& name, bool value);
 		void setFloatVec(const std::string& name, glm::vec2 vec);
 		void setFloatVec(const std::string& name, glm::vec3 vec);
 		void setFloatVec(const std::string& name, glm::vec4 vec);

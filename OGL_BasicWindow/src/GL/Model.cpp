@@ -13,16 +13,40 @@ void Model::Update()
 	this->model = glm::scale(model, polygonTrans.scale);
 }
 
-Model::Model(std::vector<glm::vec3> points, std::vector<glm::vec3> colors, std::vector<glm::vec2> texture, std::vector<unsigned> indices)
+Model::Model(std::vector<glm::vec3> points, std::vector<glm::vec3> normals, std::vector<glm::vec2> texture, std::vector<glm::vec3> colors)
 {
 	this->points = points;
+	this->normals = normals;
+	this->texture = texture;
 	this->colors = colors;
-	this->indices = indices;
+
+	vao.setIndicesCount(points.size());
 	vao.addVertexBufferObject(points);
-	vao.addVertexBufferObject(colors);
+	vao.addVertexBufferObject(normals);
 	vao.addVertexBufferObject(texture);
-	vao.addIndices(indices);
+	vao.addVertexBufferObject(colors);
 	Update();
+}
+
+Model::Model(const Model& other)
+{
+	vao = other.vao;
+	points = other.points;
+	colors = other.colors;
+	normals = other.normals;
+	texture = other.texture;
+	polygonTrans = other.polygonTrans;
+	data = other.data;
+	box_width = other.box_width;
+	box_height = other.box_height;
+	channels = other.channels;
+	box_texture = other.box_texture;
+}
+
+
+void Model::SetPolygonTrans(ModelTransform pt)
+{
+	polygonTrans = pt;
 }
 
 void Model::GenTexture()
