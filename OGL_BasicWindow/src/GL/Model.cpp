@@ -49,6 +49,11 @@ void Model::SetPolygonTrans(ModelTransform pt)
 	polygonTrans = pt;
 }
 
+void Model::SetMaterial(Material material)
+{
+	this->material = material;
+}
+
 void Model::GenTexture()
 {
 	glGenTextures(1, &box_texture);

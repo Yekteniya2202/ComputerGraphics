@@ -15,6 +15,42 @@ struct ModelTransform {
 	}
 };
 
+struct Material {
+	glm::vec3 ambient;
+	glm::vec3 diffuse;
+	glm::vec3 specular;
+	float shininess;
+};
+
+struct Light {
+
+	glm::vec3 position;
+	glm::vec3 ambient;
+	glm::vec3 diffuse;
+	glm::vec3 specular;
+};
+
+struct DirectionalLight {
+
+	glm::vec3 direction;
+
+	glm::vec3 ambient;
+	glm::vec3 diffuse;
+	glm::vec3 specular;
+};
+
+struct PointLight {
+
+	glm::vec3 position;
+
+	glm::vec3 ambient;
+	glm::vec3 diffuse;
+	glm::vec3 specular;
+
+	float constant;
+	float linear;
+	float quadratic;
+};
 typedef unsigned char byte;
 class Model
 {
@@ -31,6 +67,8 @@ private:
 	ModelTransform polygonTrans = { glm::vec3(0.0f, 0.0f, 0.0f), //pos
 									glm::vec3(0.f, 0.f, 0.f), //rotation
 									glm::vec3(1.f, 1.f, 1.f) }; //scale 
+
+	Material material;
 	glm::mat4 model = glm::mat4(1.0f);
 
 	void Update();
@@ -40,6 +78,7 @@ public:
 	Model(std::vector<glm::vec3> points, std::vector<glm::vec3> normals, std::vector<glm::vec2> texture, std::vector<glm::vec3> colors);
 	Model(const Model& other);
 	void SetPolygonTrans(ModelTransform pt);
+	void SetMaterial(Material material);
 	void GenTexture();
 	void Draw(GLenum type);
 	void SetRotationX(float degree);
