@@ -22,26 +22,14 @@ struct Material {
 	float shininess;
 };
 
+enum class LightType { Directional = 1, Point = 2, Spot = 3 };
+
 struct Light {
+	LightType type;
 
 	glm::vec3 position;
-	glm::vec3 ambient;
-	glm::vec3 diffuse;
-	glm::vec3 specular;
-};
-
-struct DirectionalLight {
-
 	glm::vec3 direction;
-
-	glm::vec3 ambient;
-	glm::vec3 diffuse;
-	glm::vec3 specular;
-};
-
-struct PointLight {
-
-	glm::vec3 position;
+	float cutOff;
 
 	glm::vec3 ambient;
 	glm::vec3 diffuse;
@@ -51,6 +39,7 @@ struct PointLight {
 	float linear;
 	float quadratic;
 };
+
 typedef unsigned char byte;
 class Model
 {
