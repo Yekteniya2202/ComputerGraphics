@@ -10,6 +10,9 @@ struct Color2 {
 	float r, g, b, a;
 };
 
+
+bool LightOn[3] = { true, true, true };
+
 Color2 background = { 0.f, 0.f, 0.f, 1.f };
 void OnResize2(GLFWwindow* win, int width, int height)
 {
@@ -352,8 +355,8 @@ void Window::loop()
 		first.setFloatMat4("pv", pv);
 		first.setFloatVec("viewPos", camera.Position);
 		first.setBool("wireFrameMode", wireframeMode);
-		for (int i = 0; i < cube_count; i++) {
-			myCube.SetPolygonTrans(cubeTrans[i]);
+		for (int j = 0; j < cube_count; j++) {
+			myCube.SetPolygonTrans(cubeTrans[j]);
 			model = myCube.GetModel();
 
 
@@ -364,7 +367,8 @@ void Window::loop()
 
 			for(int i = 0; i < lights_count; i++)
 			{
-				
+				if (LightOn[i] == false)
+					continue;
 				std::string num = std::to_string(i);
 				switch (lights[i].type) {
 					case LightType::Directional:
@@ -402,10 +406,10 @@ void Window::loop()
 				}
 			}
 
-			first.setFloatVec("material.ambient",	cubeMaterials[cubeMat[i]].ambient);
-			first.setFloatVec("material.diffuse",	cubeMaterials[cubeMat[i]].diffuse);
-			first.setFloatVec("material.specular",	cubeMaterials[cubeMat[i]].specular);
-			first.setFloat("material.shininess",	cubeMaterials[cubeMat[i]].shininess);
+			first.setFloatVec("material.ambient",	cubeMaterials[cubeMat[j]].ambient);
+			first.setFloatVec("material.diffuse",	cubeMaterials[cubeMat[j]].diffuse);
+			first.setFloatVec("material.specular",	cubeMaterials[cubeMat[j]].specular);
+			first.setFloat("material.shininess",	cubeMaterials[cubeMat[j]].shininess);
 
 			myCube.Draw(GL_TRIANGLES);
 		}
@@ -451,7 +455,24 @@ void Window::processInput(float dt)
 		dir |= CAM_LEFT;
 	if (glfwGetKey(mWindow, GLFW_KEY_D) == GLFW_PRESS)
 		dir |= CAM_RIGHT;
-	
+	if (glfwGetKey(mWindow, GLFW_KEY_Z) == GLFW_PRESS)
+		LightOn[0] = true;
+	if (glfwGetKey(mWindow, GLFW_KEY_X) == GLFW_PRESS)
+		LightOn[0] = false;
+	if (glfwGetKey(mWindow, GLFW_KEY_C) == GLFW_PRESS)
+		LightOn[1] = true;
+	if (glfwGetKey(mWindow, GLFW_KEY_V) == GLFW_PRESS)
+		LightOn[1] = false;
+	if (glfwGetKey(mWindow, GLFW_KEY_B) == GLFW_PRESS)
+		LightOn[2] = true;
+	if (glfwGetKey(mWindow, GLFW_KEY_N) == GLFW_PRESS)
+		LightOn[2] = false;
+	if (glfwGetKey(mWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+		camera.MovementSpeed = 5.0f;
+	else if (glfwGetKey(mWindow, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+		camera.MovementSpeed = 0.5f;
+	else
+		camera.MovementSpeed = 1.0f;
 	
 	static double newx = 0.f, newy = 0.f;
 	glfwGetCursorPos(mWindow, &newx, &newy);
