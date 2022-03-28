@@ -18,6 +18,31 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="stb_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="glad.c" />
+    <ClCompile Include="Light.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\backpack.frag" />
+    <None Include="shaders\backpack.vert" />
+    <None Include="shaders\basic.frag" />
+    <None Include="shaders\basic.vert" />
+    <None Include="shaders\light.frag" />
+    <None Include="shaders\light.vert" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -78,8 +103,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Libs\glfw-3.3.2.bin.WIN64\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Libs\glfw-3.3.2.bin.WIN64\lib-vc2019;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Libs\glfw-3.3.2.bin.WIN64\include;C:\Libs\assimp-5.2.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Libs\glfw-3.3.2.bin.WIN64\lib-vc2019;C:\Libs\assimp-5.2.2\lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -124,7 +149,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Libs\assimp-5.2.2\bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,33 +170,6 @@
       <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="src\GL\Camera.cpp" />
-    <ClCompile Include="src\GL\Model.cpp" />
-    <ClCompile Include="src\GL\Program.cpp" />
-    <ClCompile Include="src\glad.c" />
-    <ClCompile Include="src\GLFW\GLFW.cpp" />
-    <ClCompile Include="src\GLFW\Window.cpp" />
-    <ClCompile Include="src\OGL_BasicWindow.cpp" />
-    <ClCompile Include="src\GL\VAO.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="res\glsl\first.frag" />
-    <None Include="res\glsl\first.vert" />
-    <None Include="res\glsl\light.frag" />
-    <None Include="res\glsl\light.vert" />
-    <None Include="Shaders\basic.frag" />
-    <None Include="Shaders\basic.vert" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\GL\Camera.h" />
-    <ClInclude Include="src\GL\Model.h" />
-    <ClInclude Include="src\GL\Program.h" />
-    <ClInclude Include="src\GLFW\GLFW.h" />
-    <ClInclude Include="src\GLFW\Window.h" />
-    <ClInclude Include="src\GL\VAO.h" />
-    <ClInclude Include="src\stb_image.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
